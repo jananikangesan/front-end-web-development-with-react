@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle, CardHeader } from 'reactstrap';
 
 
 class DishDetail extends Component {
@@ -7,9 +7,6 @@ class DishDetail extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selectedDish: null
-        }
         console.log("DishDetailcomponent constructor is invoked");
     }
     
@@ -32,24 +29,21 @@ class DishDetail extends Component {
 
     renderComments(comment){
             return(
-                <div>
-                    <Card>
-                        <CardBody>
+                <div class="container">
+                    <div class="row">
                         <h4> {comment.comment}</h4>
-                        <h6> {comment.author}  {comment.date}</h6>
-                        </CardBody>
-                    </Card>
-                     
+                        <h6> -- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</h6>
+                    </div>    
                 </div>        
             );
     }
   
     render() {
-        const dishdetail= this.props.value?.comments.map((comment) => {
-          
-            return(
+        const dishdetail= this.props.dish?.comments.map((comment) => {
+           
+            return(  
                 this.renderComments(comment) 
-                );
+             );
         });
         console.log("DishDetail component render is invoked");
         // if(this.props.value?.comments != null){
@@ -57,15 +51,17 @@ class DishDetail extends Component {
         // else{
         //             console.log("bb");
         //         }
-
+    
         return (
-           
-            <div className="row">
-                <div  className="col-12 col-md-5 m-1">
-                    {this.renderDish(this.props.value)}
-                </div>
-                <div  className="col-12 col-md-5 m-1"> 
-                        {dishdetail}    
+            <div className="container">
+                <div className="row">
+                    <div  className="col-12 col-md-5 m-1">
+                        {this.renderDish(this.props.dish)}
+                    </div>
+                    <div  className="col-12 col-md-5 m-1">   
+                        {dishdetail}   
+                       
+                    </div>
                 </div>
             </div>
            
